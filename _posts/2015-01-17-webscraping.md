@@ -26,11 +26,9 @@ Service status information are displayed on the site homepage: www.wmata.com
 The following R code read and parse the html code from the wmata homepage
 
 
-{% highlight r %}
-library(rvest)
-url <- 'http://www.wmata.com/'
-wmata <- html(url)
-{% endhighlight %}
+<pre><code class="prettyprint ">library(rvest)
+url &lt;- 'http://www.wmata.com/'
+wmata &lt;- html(url)</code></pre>
 
 ## STEP 2: Extract the information we need
 I just want 2 pieces of information:
@@ -46,51 +44,41 @@ In order to extract specific pieces of information from a webpage, you need to k
 
 
 
-{% highlight r %}
-## Extract lines names
-lines <- html_nodes(wmata, "#homepage-box-inner td:nth-child(2)")
-# Remove html tags & keep only text information
-lines <- html_text(lines)
-lines
-{% endhighlight %}
+<pre><code class="prettyprint ">## Extract lines names
+lines &lt;- html_nodes(wmata, &quot;#homepage-box-inner td:nth-child(2)&quot;)
+# Remove html tags &amp; keep only text information
+lines &lt;- html_text(lines)
+lines</code></pre>
 
 
 
-{% highlight text %}
-## [1] "Red Line"    "Orange Line" "Silver Line" "Blue Line"   "Yellow Line"
-## [6] "Green Line"
-{% endhighlight %}
+<pre><code>## [1] &quot;Red Line&quot;    &quot;Orange Line&quot; &quot;Silver Line&quot; &quot;Blue Line&quot;   &quot;Yellow Line&quot;
+## [6] &quot;Green Line&quot;
+</code></pre>
 
 
-{% highlight r %}
-## Extract service status information
-status <-  html_nodes(wmata, ".dropt_rail a")
-status <- html_text(status)
-status
-{% endhighlight %}
+<pre><code class="prettyprint ">## Extract service status information
+status &lt;-  html_nodes(wmata, &quot;.dropt_rail a&quot;)
+status &lt;- html_text(status)
+status</code></pre>
 
 
 
-{% highlight text %}
-## [1] "Alert" "Alert" "Alert" "Alert" "Alert" "Alert"
-{% endhighlight %}
+<pre><code>## [1] &quot;Alert&quot; &quot;Alert&quot; &quot;Alert&quot; &quot;Alert&quot; &quot;Alert&quot; &quot;Alert&quot;
+</code></pre>
 
 ## STEP 3: Turn to tabular format
 
 
-{% highlight r %}
-output <- cbind(lines, status)
-output <- as.data.frame(output)
-{% endhighlight %}
+<pre><code class="prettyprint ">output &lt;- cbind(lines, status)
+output &lt;- as.data.frame(output)</code></pre>
 
 ## STEP 4: Save on my computer
 
-{% highlight r %}
-write.table(output,  
+<pre><code class="prettyprint ">write.table(output,  
             file = 'metro_status.csv', 
             sep = ',', 
-            row.names = FALSE)
-{% endhighlight %}
+            row.names = FALSE)</code></pre>
 
 
 ![](/images/webscraping/hydrant.jpg)
