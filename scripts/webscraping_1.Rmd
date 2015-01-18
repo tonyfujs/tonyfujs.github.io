@@ -3,18 +3,20 @@ layout: post
 title: "10 minutes intro to webscraping with R: Part 1"
 ---
 
-Learning new stuff is great... too much information... overwhelmed
+Learning new stuff is great, but it can sometimes feel a little bit overwhelming...
 
-What works for me:
-1. Get a quick overview
-2. Be able to implement something myself
-3. Dig deeper as needed
+![](/images/webscraping_1/hydrant_2.jpg)
 
-Hilary Parker's great post on R packages
+My learning experience is great if I can:
+1. Get a quick and intuitive overview of the topic    
+2. Dig deeper as needed (and only as needed)  
+3. Apply some of that knowledge right away    
 
-Introduction to webscraping: Simple, easy to reproduce in 10 minutes, link to more detailed explanations if you fill like digging deeper into the subject.
+This why I loved Hilary Parker's post on R packages: I gives you the gist of waht an R package is and can do for you, allows you to build your first package in 10 minutes, and gives you references to learn more if you want to.
 
-What I want want to achieve is very simple. I want to download the DC Metro Status information on my computer, and save it in a user friendly format (aka a table). These are the steps I'm going to follow:
+I will try to respect these principles in this post about webscrapping with R. [INSERT SHORT DESCRIPTION OF WEBSCRAPING]
+
+What I want want to achieve is very simple. I want to download the DC Metro Status information on my computer, and save it in a user friendly format (aka a table) that I will be able to access later. Those are the steps I'm going to follow:
 
 1. Get data from the DC Metro webpage (www.wmata.com)
 2. Extract the information we need
@@ -75,4 +77,4 @@ write.table(output,
 ```
 
 
-![](/images/webscraping/hydrant.jpg)
+
