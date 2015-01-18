@@ -25,12 +25,11 @@ What I want want to achieve is very simple. I want to download the DC Metro Stat
 Service status information are displayed on the site homepage: www.wmata.com
 The following R code read and parse the html code from the wmata homepage
 
-
-{% highlight r %}
+```{r}
 library(rvest)
 url <- 'http://www.wmata.com/'
 wmata <- html(url)
-{% endhighlight %}
+```
 
 ## STEP 2: Extract the information we need
 I just want 2 pieces of information:
@@ -45,52 +44,35 @@ In order to extract specific pieces of information from a webpage, you need to k
 `rvest` makes really easy to extract specific pieces of information from our `wmata` object.
 
 
-
-{% highlight r %}
+```{r}
 ## Extract lines names
 lines <- html_nodes(wmata, "#homepage-box-inner td:nth-child(2)")
 # Remove html tags & keep only text information
 lines <- html_text(lines)
 lines
-{% endhighlight %}
+```
 
-
-
-{% highlight text %}
-## [1] "Red Line"    "Orange Line" "Silver Line" "Blue Line"   "Yellow Line"
-## [6] "Green Line"
-{% endhighlight %}
-
-
-{% highlight r %}
+```{r}
 ## Extract service status information
 status <-  html_nodes(wmata, ".dropt_rail a")
 status <- html_text(status)
 status
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "Alert" "Alert" "Alert" "Alert" "Alert" "Alert"
-{% endhighlight %}
+```
 
 ## STEP 3: Turn to tabular format
 
-
-{% highlight r %}
+```{r}
 output <- cbind(lines, status)
 output <- as.data.frame(output)
-{% endhighlight %}
+```
 
 ## STEP 4: Save on my computer
-
-{% highlight r %}
+```{r}
 write.table(output,  
             file = 'metro_status.csv', 
             sep = ',', 
             row.names = FALSE)
-{% endhighlight %}
+```
 
 
 ![](/images/webscraping/hydrant.jpg)
