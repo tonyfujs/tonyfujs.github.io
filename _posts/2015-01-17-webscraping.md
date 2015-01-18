@@ -21,6 +21,6 @@ raw <- html(url)
 {% endhighlight %}
 
 
-![center](/figs/webscraping/unnamed-chunk-2-1.png) 
+![center](/images/webscraping/unnamed-chunk-2-1.png) 
 
 
