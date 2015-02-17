@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "10 minutes intro to webscraping with R: Part 1"
+title: "10 minutes intro to webscraping with R: Part  1"
 ---
 
 Learning new stuff is great... As long as you don't drawn under tons of details irrelevant to newbies.
