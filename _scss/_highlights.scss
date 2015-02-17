@@ -3,7 +3,7 @@
 /* SYNTAX HIGHLIGHTING */
 /***********************/
 
-.highlight { 
+.highlight {
   background-color: $darkerGray;
   padding: 5px 10px;
   margin: 20px 0;
@@ -14,14 +14,15 @@
   word-break: break-all;
   word-wrap: break-word;
 }
- 
+
 code {
   font-family: 'Courier', monospace;
   font-size: 14px;
+  font-weight: bold;
   color: #999
 }
- 
-// Solarized Light Pygments 
+
+// Solarized Light Pygments
 // Thanks https://gist.github.com/edwardhotchkiss/2005058
 /* Comment */
 .highlight .c, .highlight .c1 { color: #586E75 }
