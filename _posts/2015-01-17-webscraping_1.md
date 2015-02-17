@@ -5,7 +5,7 @@ title: "10 minutes intro to webscraping with R: Part 1"
 
 Learning new stuff is great... As long as you don't drawn under tons of details irrelevant to newbies.
 
-![](/images/webscraping_1/hydrant_2.jpg)
+![](/images/webscraping_1/hydrant_2.jpg =250x100)
 
 When learning about a new topic, this is my ideal start:
 
@@ -25,7 +25,7 @@ What I want want to achieve is very simple. I want to download the most recent t
 3. Turn that information into tabular format
 4. Save on my computer
 
-## STEP 1: Get data from DC Metro webpage
+## STEP 1: Get data from Twitter
 The most recent tweets about #rstats can be found at the following url: [https://twitter.com/hashtag/rstats?f=realtime](https://twitter.com/hashtag/rstats?f=realtime)
 The following R code read and parse the html code from the wmata homepage
 
@@ -47,128 +47,74 @@ I just want 3 pieces of information:
 The `twitter` variable holds the information I need, but it also holds a lot of stuff I don't need. In order to extract specific pieces of information from a webpage, you need to know a few things:
 1. Similar pieces of information have the same identifier.
 2. This identifier is called a css selector
-3. You can easily find out the css selectors of the pieces of information you are interested in by using a very handy tool called [selectorGadget](http://selectorgadget.com/)
+3. You can easily find out the css selectors of the pieces of information you are interested in by using a very handy tool called Selector Gadget. Watch the 2 minutes tutorial [here](http://selectorgadget.com/).
 
-[![Watch 2 minutes tutorial to selectorGadget](http://i.vimeocdn.com/video/359024370_640.jpg)](https://vimeo.com/52055686)
-
-`rvest` makes really easy to extract specific pieces of information from our `wmata` object.
+Using these css selectors and the `rvest` package, it is now really easy to extract specific pieces of information from our `twitter` variable.
 
 
 
 {% highlight r %}
-## Extract lines names
-lines <- html_nodes(wmata, "#homepage-box-inner td:nth-child(2)")
+## Extract tweets
+tweets <- html_nodes(twitter, ".tweet-text") # Extract raw tweets
+tweets <- html_text(tweets) # Remove html tags
+print(tweets[1:3]) # Print the first 3 tweets
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in html_nodes(wmata, "#homepage-box-inner td:nth-child(2)"): object 'wmata' not found
+## [1] "MT @sqlbelle: Shared from Stephane Frechette Good tutorial: How to transition from Excel to #Rstats https://lnkd.in/bYUqpZZ \""                       
+## [2] "\"Scripting and #HCS Tools in #KNIME\" workshop at #KNIME UGM #Berlin Feb 27 http://www.knime.org/ugm2015  #data #rstats #molecule #biology #genetics"
+## [3] "#rstats blog post by @opencpu: Introducing js: tools for working with JavaScript in R https://www.opencpu.org/posts/js-release-0-1 …"
 {% endhighlight %}
 
 
 
 {% highlight r %}
-# Remove html tags & keep only text information
-lines <- html_text(lines)
+# Extract user name
+users <-  html_nodes(twitter, ".js-action-profile-name b")
+users <- html_text(users)
+print(users[1:3])
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in xml_apply(x, XML::xmlValue, ..., .type = character(1)): Unknown input of class: function
+## [1] "GGorczynski" "knime"       "pogrebnyak"
 {% endhighlight %}
 
 
 
 {% highlight r %}
-lines
+# Extract number of time tweet was favorited
+favorited <- html_nodes(twitter, ".js-actionFavorite .ProfileTweet-actionCountForPresentation")
+favorited <- html_text(favorited)
+print(favorited[1:3])
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## function (x, ...) 
-## UseMethod("lines")
-## <bytecode: 0x00000000082c1fe8>
-## <environment: namespace:graphics>
-{% endhighlight %}
-
-
-{% highlight r %}
-## Extract service status information
-status <-  html_nodes(wmata, ".dropt_rail a")
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in html_nodes(wmata, ".dropt_rail a"): object 'wmata' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
-status <- html_text(status)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in inherits(x, "XMLAbstractDocument"): object 'status' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
-status
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in eval(expr, envir, enclos): object 'status' not found
+## [1] "" "" ""
 {% endhighlight %}
 
 ## STEP 3: Turn to tabular format
+Here I just put together in one table the tweets, users, and favorited vectors.
 
 
 {% highlight r %}
-output <- cbind(lines, status)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in cbind(lines, status): object 'status' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
-output <- as.data.frame(output)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in as.data.frame(output): object 'output' not found
+my_table <- cbind(users, tweets, favorited)
 {% endhighlight %}
 
 ## STEP 4: Save on my computer
+Finally, I save `my_table` as a .csv file named "rstat_tweets.csv". The file will be saved in the working directory.
 
 {% highlight r %}
-write.table(output,  
-            file = 'metro_status.csv', 
+write.table(my_table,  
+            file = 'rstat_tweets.csv', 
             sep = ',', 
             row.names = FALSE)
 {% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in is.data.frame(x): object 'output' not found
-{% endhighlight %}
-
-
+That's it!! Hopefully this post is short and simple enough to get anyone started in 15 minutes. Feel free to contact me if you get stuck.
 
