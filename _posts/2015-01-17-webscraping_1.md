@@ -3,11 +3,12 @@ layout: post
 title: "10 minutes intro to webscraping with R: Part 1"
 ---
 
-Learning new stuff is great... As long as you don't drawn under tons of details that are directly relevant to a newbie.
+Learning new stuff is great... As long as you don't drawn under tons of details irrelevant to newbies.
 
 ![](/images/webscraping_1/hydrant_2.jpg)
 
 When learning about a new topic, this is my ideal start:
+
 1. Get a quick - and hopefully intuitive - overview
 2. Get my hands dirty. (Ever tried learning how to bike by reading "Biking for dummies"?)
 3. Dig deeper as needed - And only as needed.
@@ -48,7 +49,7 @@ The `twitter` variable holds the information I need, but it also holds a lot of 
 2. This identifier is called a css selector
 3. You can easily find out the css selectors of the pieces of information you are interested in by using a very handy tool called [selectorGadget](http://selectorgadget.com/)
 
-[[vimeo-52055686-688x387]]
+[![Watch 2 minutes tutorial to selectorGadget](http://i.vimeocdn.com/video/359024370_640.jpg)](https://vimeo.com/52055686)
 
 `rvest` makes really easy to extract specific pieces of information from our `wmata` object.
 
