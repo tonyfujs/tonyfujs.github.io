@@ -5,17 +5,17 @@ title: "10 minutes intro to webscraping with R: Part 1"
 
 Learning new stuff is great... As long as you don't drawn under tons of details irrelevant to newbies.
 
-![](/images/webscraping_1/hydrant_2.jpg =250x100)
+![](/images/webscraping_1/hydrant_2.jpg =512x)
 
 When learning about a new topic, this is my ideal start:
 
 1. Get a quick - and hopefully intuitive - overview
-2. Get my hands dirty. (Ever tried learning how to bike by reading "Biking for dummies"?)
+2. Get my hands dirty. (Reading is great, but if learning how to bike, you'll need to climb on a bike at some point)
 3. Dig deeper as needed - And only as needed.
 
-This why I loved Hilary Parker's post on R packages: It gives you the gist of what an R package is and can do for you, allows you to build your first package in 10 minutes, and gives you references to learn more if you want to.
+This is why I loved [Hilary Parker's post](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) on R packages: It gives you the gist of what an R package is and can do for you, allows you to build your first package in 10 minutes, and gives you references to learn more if you want to.
 
-While playing with the relatively new rvest package, I thought I would give a shot at writing an intro to webscraping that follows the same principles. [INSERT SHORT DESCRIPTION OF WEBSCRAPING]
+While playing with the relatively new rvest package, I thought I would give a shot at writing an intro to webscraping that follows the same principles.
 
 ### Webscraping objective:
 What I want want to achieve is very simple. I want to download the most recent tweets about the #rstats hashtag on my computer, and save it in a user friendly format (aka a table). These are the steps I'm going to follow:
@@ -30,11 +30,9 @@ The most recent tweets about #rstats can be found at the following url: [https:/
 The following R code read and parse the html code from the wmata homepage
 
 
-{% highlight r %}
-library(rvest) # Load the rvest package
-url <- 'https://twitter.com/hashtag/rstats?f=realtime' # Create a variable holding the url information
-twitter <- html(url) # Parse the html code downloaded from url
-{% endhighlight %}
+<pre><code class="prettyprint ">library(rvest) # Load the rvest package
+url &lt;- 'https://twitter.com/hashtag/rstats?f=realtime' # Create a variable holding the url information
+twitter &lt;- html(url) # Parse the html code downloaded from url</code></pre>
 
 The `twitter` variable now holds raw html code. You can see this by entering `print(twitter)` in your R console.
 
@@ -53,68 +51,55 @@ Using these css selectors and the `rvest` package, it is now really easy to extr
 
 
 
-{% highlight r %}
-## Extract tweets
-tweets <- html_nodes(twitter, ".tweet-text") # Extract raw tweets
-tweets <- html_text(tweets) # Remove html tags
-print(tweets[1:3]) # Print the first 3 tweets
-{% endhighlight %}
+<pre><code class="prettyprint ">## Extract tweets
+tweets &lt;- html_nodes(twitter, &quot;.tweet-text&quot;) # Extract raw tweets
+tweets &lt;- html_text(tweets) # Remove html tags
+print(tweets[1:3]) # Print the first 3 tweets</code></pre>
 
 
 
-{% highlight text %}
-## [1] "MT @sqlbelle: Shared from Stephane Frechette Good tutorial: How to transition from Excel to #Rstats https://lnkd.in/bYUqpZZ \""                       
-## [2] "\"Scripting and #HCS Tools in #KNIME\" workshop at #KNIME UGM #Berlin Feb 27 http://www.knime.org/ugm2015  #data #rstats #molecule #biology #genetics"
-## [3] "#rstats blog post by @opencpu: Introducing js: tools for working with JavaScript in R https://www.opencpu.org/posts/js-release-0-1 …"
-{% endhighlight %}
+<pre><code>## [1] &quot;MT @sqlbelle: Shared from Stephane Frechette Good tutorial: How to transition from Excel to #Rstats https://lnkd.in/bYUqpZZ \&quot;&quot;                       
+## [2] &quot;\&quot;Scripting and #HCS Tools in #KNIME\&quot; workshop at #KNIME UGM #Berlin Feb 27 http://www.knime.org/ugm2015  #data #rstats #molecule #biology #genetics&quot;
+## [3] &quot;#rstats blog post by @opencpu: Introducing js: tools for working with JavaScript in R https://www.opencpu.org/posts/js-release-0-1 …&quot;
+</code></pre>
 
 
 
-{% highlight r %}
-# Extract user name
-users <-  html_nodes(twitter, ".js-action-profile-name b")
-users <- html_text(users)
-print(users[1:3])
-{% endhighlight %}
+<pre><code class="prettyprint "># Extract user name
+users &lt;-  html_nodes(twitter, &quot;.js-action-profile-name b&quot;)
+users &lt;- html_text(users)
+print(users[1:3])</code></pre>
 
 
 
-{% highlight text %}
-## [1] "GGorczynski" "knime"       "pogrebnyak"
-{% endhighlight %}
+<pre><code>## [1] &quot;GGorczynski&quot; &quot;knime&quot;       &quot;pogrebnyak&quot;
+</code></pre>
 
 
 
-{% highlight r %}
-# Extract number of time tweet was favorited
-favorited <- html_nodes(twitter, ".js-actionFavorite .ProfileTweet-actionCountForPresentation")
-favorited <- html_text(favorited)
-print(favorited[1:3])
-{% endhighlight %}
+<pre><code class="prettyprint "># Extract number of time tweet was favorited
+favorited &lt;- html_nodes(twitter, &quot;.js-actionFavorite .ProfileTweet-actionCountForPresentation&quot;)
+favorited &lt;- html_text(favorited)
+print(favorited[1:3])</code></pre>
 
 
 
-{% highlight text %}
-## [1] "" "" ""
-{% endhighlight %}
+<pre><code>## [1] &quot;&quot; &quot;&quot; &quot;&quot;
+</code></pre>
 
 ## STEP 3: Turn to tabular format
 Here I just put together in one table the tweets, users, and favorited vectors.
 
 
-{% highlight r %}
-my_table <- cbind(users, tweets, favorited)
-{% endhighlight %}
+<pre><code class="prettyprint ">my_table &lt;- cbind(users, tweets, favorited)</code></pre>
 
 ## STEP 4: Save on my computer
 Finally, I save `my_table` as a .csv file named "rstat_tweets.csv". The file will be saved in the working directory.
 
-{% highlight r %}
-write.table(my_table,  
+<pre><code class="prettyprint ">write.table(my_table,  
             file = 'rstat_tweets.csv', 
             sep = ',', 
-            row.names = FALSE)
-{% endhighlight %}
+            row.names = FALSE)</code></pre>
 
 That's it!! Hopefully this post is short and simple enough to get anyone started in 15 minutes. Feel free to contact me if you get stuck.
 
