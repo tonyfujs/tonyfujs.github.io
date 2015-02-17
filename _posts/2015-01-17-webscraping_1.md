@@ -28,11 +28,12 @@ What I want want to achieve is very simple. I want to download the most recent t
 The most recent tweets about #rstats can be found at the following url: [https://twitter.com/hashtag/rstats?f=realtime](https://twitter.com/hashtag/rstats?f=realtime)
 The following R code read and parse the html code from the wmata homepage
 
-```{r}
+
+{% highlight r %}
 library(rvest) # Load the rvest package
 url <- 'https://twitter.com/hashtag/rstats?f=realtime' # Create a variable holding the url information
 twitter <- html(url) # Parse the html code downloaded from url
-```
+{% endhighlight %}
 
 The `twitter` variable now holds raw html code. You can see this by entering `print(twitter)` in your R console.
 
@@ -52,35 +53,121 @@ The `twitter` variable holds the information I need, but it also holds a lot of 
 `rvest` makes really easy to extract specific pieces of information from our `wmata` object.
 
 
-```{r}
+
+{% highlight r %}
 ## Extract lines names
 lines <- html_nodes(wmata, "#homepage-box-inner td:nth-child(2)")
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in html_nodes(wmata, "#homepage-box-inner td:nth-child(2)"): object 'wmata' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 # Remove html tags & keep only text information
 lines <- html_text(lines)
-lines
-```
+{% endhighlight %}
 
-```{r}
+
+
+{% highlight text %}
+## Error in xml_apply(x, XML::xmlValue, ..., .type = character(1)): Unknown input of class: function
+{% endhighlight %}
+
+
+
+{% highlight r %}
+lines
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## function (x, ...) 
+## UseMethod("lines")
+## <bytecode: 0x00000000082c1fe8>
+## <environment: namespace:graphics>
+{% endhighlight %}
+
+
+{% highlight r %}
 ## Extract service status information
 status <-  html_nodes(wmata, ".dropt_rail a")
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in html_nodes(wmata, ".dropt_rail a"): object 'wmata' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 status <- html_text(status)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in inherits(x, "XMLAbstractDocument"): object 'status' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 status
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in eval(expr, envir, enclos): object 'status' not found
+{% endhighlight %}
 
 ## STEP 3: Turn to tabular format
 
-```{r}
+
+{% highlight r %}
 output <- cbind(lines, status)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in cbind(lines, status): object 'status' not found
+{% endhighlight %}
+
+
+
+{% highlight r %}
 output <- as.data.frame(output)
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in as.data.frame(output): object 'output' not found
+{% endhighlight %}
 
 ## STEP 4: Save on my computer
-```{r}
+
+{% highlight r %}
 write.table(output,  
             file = 'metro_status.csv', 
             sep = ',', 
             row.names = FALSE)
-```
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in is.data.frame(x): object 'output' not found
+{% endhighlight %}
 
 
 
