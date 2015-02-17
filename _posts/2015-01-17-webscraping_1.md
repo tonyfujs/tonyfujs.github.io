@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "10 minutes intro to webscraping with R: Part  1"
+title: "10 minutes intro to webscraping with R: Part 1"
 ---
 
 Learning new stuff is great... As long as you don't drawn under tons of details irrelevant to newbies.
@@ -40,6 +40,7 @@ The `twitter` variable now holds raw html code. You can see this by entering `pr
 
 ## STEP 2: Extract the information we need
 I just want 3 pieces of information:
+
 * Twitter usernames
 * Body of tweets
 * Number of time tweets were favorited
@@ -57,45 +58,12 @@ Using these css selectors and the `rvest` package, it is now really easy to extr
 ## Extract tweets
 tweets <- html_nodes(twitter, ".tweet-text") # Extract raw tweets
 tweets <- html_text(tweets) # Remove html tags
-print(tweets[1:3]) # Print the first 3 tweets
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "Need to read and write spreadsheets using R? Have a look at this quick intro to XLConnect #rstats #xls http://buff.ly/1CryzBP "                       
-## [2] "MT @sqlbelle: Shared from Stephane Frechette Good tutorial: How to transition from Excel to #Rstats https://lnkd.in/bYUqpZZ \""                       
-## [3] "\"Scripting and #HCS Tools in #KNIME\" workshop at #KNIME UGM #Berlin Feb 27 http://www.knime.org/ugm2015  #data #rstats #molecule #biology #genetics"
-{% endhighlight %}
-
-
-
-{% highlight r lineos %}
 # Extract user name
 users <-  html_nodes(twitter, ".js-action-profile-name b")
 users <- html_text(users)
-print(users[1:3])
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "Altons"      "GGorczynski" "knime"
-{% endhighlight %}
-
-
-
-{% highlight r lineos %}
 # Extract number of time tweet was favorited
 favorited <- html_nodes(twitter, ".js-actionFavorite .ProfileTweet-actionCountForPresentation")
 favorited <- html_text(favorited)
-print(favorited[1:3])
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## [1] "" "" ""
 {% endhighlight %}
 
 ## STEP 3: Turn to tabular format
