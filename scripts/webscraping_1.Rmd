@@ -15,7 +15,7 @@ When learning about a new topic, this is my ideal start:
 
 This is why I loved [Hilary Parker's post](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) on R packages: It gives you the gist of what an R package is and can do for you, allows you to build your first package in 10 minutes, and gives you references to learn more if you want to.
 
-While playing with the relatively new rvest package, I thought I would give a shot at writing an short and easy to follow intro to webscraping.
+While playing with the relatively new rvest package, I thought I would give a shot at writing a short and easy to follow intro to webscraping.
 
 ### Webscraping objective:
 What I want want to achieve is very simple. I want to download the most recent tweets about the #rstats hashtag on my computer, and save them in a user friendly format (aka a table). These are the steps I'm going to follow:
