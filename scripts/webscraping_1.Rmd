@@ -38,7 +38,7 @@ url <- 'https://twitter.com/hashtag/rstats?f=realtime'
 twitter <- html(url) 
 ```
 
-The `twitter` variable now holds raw html code. You can see this by entering `print(twitter)` in your R console.
+The `twitter` variable now holds parsed html code. You can see this by entering `print(twitter)` in your R console.
 
 ## STEP 2: Extract the information we need
 I just want 3 pieces of information:
