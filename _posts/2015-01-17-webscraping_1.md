@@ -27,13 +27,16 @@ What I want want to achieve is very simple. I want to download the most recent t
 
 ## STEP 1: Get data from Twitter
 The most recent tweets about #rstats can be found at the following url: [https://twitter.com/hashtag/rstats?f=realtime](https://twitter.com/hashtag/rstats?f=realtime)
-The following R code read and parse the html code from the wmata homepage
+The following R code read and parse the [html](https://www.khanacademy.org/computing/computer-programming/html-css/intro-to-html/v/making-webpages-intro) code from the twitter page.
 
 
 {% highlight r lineos %}
-library(rvest) # Load the rvest package
-url <- 'https://twitter.com/hashtag/rstats?f=realtime' # Create a variable holding the url information
-twitter <- html(url) # Parse the html code downloaded from url
+# Load the rvest package
+library(rvest) 
+# Create a variable holding the url information
+url <- 'https://twitter.com/hashtag/rstats?f=realtime' 
+# Parse the html code downloaded from url
+twitter <- html(url) 
 {% endhighlight %}
 
 The `twitter` variable now holds raw html code. You can see this by entering `print(twitter)` in your R console.
@@ -47,17 +50,19 @@ I just want 3 pieces of information:
 
 The `twitter` variable holds the information I need, but it also holds a lot of stuff I don't need. In order to extract specific pieces of information from a webpage, you need to know a few things:
 1. Similar pieces of information have the same identifier.
-2. This identifier is called a css selector
+2. This identifier is called a [css selector](http://flukeout.github.io/)
 3. You can easily find out the css selectors of the pieces of information you are interested in by using a very handy tool called Selector Gadget. Watch the 2 minutes tutorial [here](http://selectorgadget.com/).
 
-Using these css selectors and the `rvest` package, it is now really easy to extract specific pieces of information from our `twitter` variable.
+Using these css selectors and the `rvest` [package](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/), it is now really easy to extract specific pieces of information from our `twitter` variable.
 
 
 
 {% highlight r lineos %}
 ## Extract tweets
-tweets <- html_nodes(twitter, ".tweet-text") # Extract raw tweets
-tweets <- html_text(tweets) # Remove html tags
+# Extract raw tweets
+tweets <- html_nodes(twitter, ".tweet-text")
+# Remove html tags
+tweets <- html_text(tweets) 
 # Extract user name
 users <-  html_nodes(twitter, ".js-action-profile-name b")
 users <- html_text(users)
@@ -84,5 +89,7 @@ write.table(my_table,
             row.names = FALSE)
 {% endhighlight %}
 
-That's it!! Hopefully this post is short and simple enough to get anyone started in 15 minutes. Feel free to contact me if you get stuck.
+That's it!! Hopefully this post is short and simple enough to get anyone started in 15 minutes. Part 2 will follow soon, and focus on automating this webscraping process.
+
+For more information about webscraping with R, a good reference is [Automated Data Collection with R](http://www.amazon.com/Automated-Data-Collection-Practical-Scraping/dp/111883481X).
 
