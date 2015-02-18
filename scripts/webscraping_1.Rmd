@@ -53,7 +53,7 @@ The `twitter` variable holds the information I need, but it also holds a lot of 
 2. This identifier is called a [css selector](http://flukeout.github.io/)
 3. You can easily find out the css selectors of the pieces of information you are interested in by using a very handy tool called Selector Gadget. Watch the 2 minutes tutorial [here](http://selectorgadget.com/).
 
-Using these css selectors and the `rvest` [package](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/), it is now really easy to extract specific pieces of information from our `twitter` variable.
+Using these css selectors and the `rvest` [package](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/), it is now really easy to extract specific pieces of information from the `twitter` variable.
 
 
 ```{r}
