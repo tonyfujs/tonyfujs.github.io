@@ -40,7 +40,7 @@ twitter <- html(url)
 
 The `twitter` variable now holds parsed html code. You can see this by entering `print(twitter)` in your R console.
 
-## STEP 2: Extract the information we need
+## STEP 2: Extract the information I need
 I just want 3 pieces of information:
 
 * Twitter usernames
