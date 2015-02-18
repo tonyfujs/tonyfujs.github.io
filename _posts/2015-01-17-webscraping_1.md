@@ -49,6 +49,7 @@ I just want 3 pieces of information:
 * Number of time tweets were favorited
 
 The `twitter` variable holds the information I need, but it also holds a lot of stuff I don't need. In order to extract specific pieces of information from a webpage, you need to know a few things:
+
 1. Similar pieces of information have the same identifier.
 2. This identifier is called a [css selector](http://flukeout.github.io/)
 3. You can easily find out the css selectors of the pieces of information you are interested in by using a very handy tool called Selector Gadget. Watch the 2 minutes tutorial [here](http://selectorgadget.com/).
